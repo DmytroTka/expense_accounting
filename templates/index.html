@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block second_title %}Головна сторінка{% endblock %}
+
+{% block content %}
+    <h1>Головна сторінка  |  Ваші обліки витрат</h1>
+    <div>
+        {% if cash_accounting!="There haven't been operations yet" %}
+        {% for accounting in  cash_accounting %}
+        <a href="/operations/{{ cash_accounting.index(accounting) }}">
+            <div class="accounting-block" style="margin-top:20px;">
+                <h3>{{ accounting.accounting_name }}</h3>
+                <p>Валюта: {{ accounting.currency }}</p>
+            </div>
+        </a>
+        {% endfor %}
+        {% else %}
+        <h2>На цьому обліковому записі ще не було створено обліку витрат. Щоб почати працювати, натисніть 'Додати новий облік'</h2>
+        {% endif %}
+    </div>
+    <!--<p>Прибуток за всі операції з таблиці: </p>-->
+    <form action="/add_new_accounting">
+        <button type="submit" class="btn btn-success" style="margin-top: 30px;">Додати новий облік</button>
+    </form>
+{% endblock %}

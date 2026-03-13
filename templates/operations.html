@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block second_title %}Головна сторінка{% endblock %}
+
+{% block content %}
+    <h1>{{ cash_accounting.accounting_name }}</h1>
+    <div>
+        {% if cash_operations %}
+
+        <div class="row">
+            <div class="col-6 statistic-block">
+                <h4>Статистика</h4>
+                <p>Валюта: {{ cash_accounting.currency }}</p>
+                <p>Початкова ставка: {{ cash_accounting.cash_amount }}<span style="font-size: 15px;">{{ cash_accounting.currency }}</span></p>
+                <p>Прибуток за всі операції: <span style="color: {% if cash_profit>0 %}#02d634{% else %}#eb6152{% endif %};">{% if cash_profit>0 %}+{% endif %}{{ cash_profit }}<span style="font-size: 15px;">{{ cash_accounting.currency }}</span></span></p>
+                <p>Кошти після всіх операцій: <span style="color: {% if cash_profit>0 %}#02d634{% else %}#eb6152{% endif %};">{{ starter_cash+cash_profit }}<span style="font-size: 15px;">{{ cash_accounting.currency }}</span></span></p>
+            </div>
+            <div class="col-6">
+                <h4>Операції до обліку</h4>
+                <form action="/edit_accounting/{{accounting_id}}">
+                    <button type="submit" class="btn btn-warning accounting-option-button">Редагувати характеристики обліку</button>
+                </form>
+                <form action="/delete_accounting/{{accounting_id}}">
+                    <button type="submit" class="btn btn-danger accounting-option-button">Видалити весь облік</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Назва операції</th>
+              <th scope="col">Дохід чи витрата</th>
+              <th scope="col">Кошти({{ cash_accounting.currency }})</th>
+              <th scope="col">
+                  Операції
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for operation in cash_operations %}
+            <tr>
+              <th scope="row">{{ cash_operations.index(operation)+1 }}</th>
+              <td>{{operation.operation_name}}</td>
+              <td>{% if operation.operation_type=='profit' %}<span style="color: #02d634;">Дохід</span>{% else %}<span style="color: #eb6152;">Витрата</span>{% endif %}</td>
+              <td><span style="color:{% if operation.operation_type=='profit' %}#02d634{% else %}#eb6152{% endif %}">{% if operation.operation_type=='profit' %}+{% else %}-{% endif %}{{operation.cash_amount}}<span style="font-size: 15px;">{{ cash_accounting.currency }}</span></span></td>
+              <td><a href="/edit_operation/{{ accounting_id }}/{{ cash_operations.index(operation) }}" class="operation-link">Редагувати</a><a href="/delete/{{ accounting_id }}/{{ cash_operations.index(operation) }}" class="operation-link">Видалити</a></td>
+            </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+        {% else %}
+        <h2>На цьому обліковому записі ще не було внесено змін до обліку витрат. Щоб почати працювати, натисніть 'Додати нове положення до таблиці'</h2>
+        {% endif %}
+    </div>
+    <!--<p>Прибуток за всі операції з таблиці: </p>-->
+    <form action="/add_operation/{{ accounting_id }}">
+        <button type="submit" class="btn btn-success" style="margin-top: 10px;">Додати нове положення до таблиці</button>
+    </form>
+{% endblock %}

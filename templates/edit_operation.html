@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block second_title %}Головна сторінка{% endblock %}
+
+{% block content %}
+<h1>Редагувати операцію</h1>
+<form method="post" action="">
+      <div class="mb-3">
+        <label for="operation_name" class="form-label">Назва</label>
+        <input type="text" class="form-control" id="operation_name" aria-describedby="emailHelp" name="operation_name" maxlength="30" placeholder="{{cash_operation.operation_name}}">
+
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="operation_type" id="flexRadioDefault1" value="profit"
+               {% if cash_operation.operation_type=='profit' %}checked{% endif %}>
+        <label class="form-check-label" for="flexRadioDefault1">
+          Дохід
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="operation_type" id="flexRadioDefault2" value="expense"
+               {% if cash_operation.operation_type=='expense' %}checked{% endif %}>
+        <label class="form-check-label" for="flexRadioDefault2">
+          Витрата
+        </label>
+      </div>
+      <div class="mb-3">
+        <label for="cash_amount" class="form-label">Кількість коштів</label>
+        <input type="number" class="form-control" id="cash_amount" name="cash_amount" min="0" placeholder="{{cash_operation.cash_amount}}">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Редагувати</button>
+</form>
+{% endblock %}

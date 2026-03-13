@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block second_title %}Авторизація{% endblock %}
+
+{% block content %}
+    <h1>Вхід до облікового запису</h1>
+    <form method="post" action="">
+      <div class="mb-3">
+        <label for="login" class="form-label">Логін</label>
+        <input type="text" class="form-control" id="login" aria-describedby="emailHelp" name="login">
+
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Увійти</button>
+    </form>
+{% endblock %}

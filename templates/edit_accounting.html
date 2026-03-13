@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block second_title %}Редагувати облік{% endblock %}
+
+{% block content %}
+<h1>Редагувати загальні характеристики обліку витрат</h1>
+<form method="post" action="">
+      <div class="mb-3">
+        <label for="accounting_name" class="form-label">Назва обліку</label>
+        <input type="text" class="form-control" id="accounting_name" aria-describedby="emailHelp" name="accounting_name" maxlength="30" placeholder="{{ cash_accounting.accounting_name }}">
+
+      </div>
+
+      <div class="mb-3">
+        <label for="cash_amount" class="form-label">Початкова кількість коштів</label>
+        <input type="number" class="form-control" id="cash_amount" name="cash_amount" min="0" placeholder="{{ cash_accounting.cash_amount }}">
+      </div>
+      <div class="mb-3">
+          <label for="currency" class="form-label">Валюта</label>
+          <select name="currency" id="currency" >
+              <option value="грн" {% if cash_accounting.currency == 'грн' %}selected{% endif %}>Гривні</option>
+              <option value="$" {% if cash_accounting.currency == '$' %}selected{% endif %}>Долари</option>
+              <option value="euro" {% if cash_accounting.currency == 'euro' %}selected{% endif %}>Євро</option>
+
+          </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Змінити</button>
+</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block second_title %}Створити новий облік{% endblock %}
+
+{% block content %}
+<form method="post" action="">
+      <div class="mb-3">
+        <label for="accounting_name" class="form-label">Назва обліку</label>
+        <input type="text" class="form-control" id="accounting_name" aria-describedby="emailHelp" name="accounting_name" maxlength="30">
+
+      </div>
+
+      <div class="mb-3">
+        <label for="cash_amount" class="form-label">Початкова кількість коштів</label>
+        <input type="number" class="form-control" id="cash_amount" name="cash_amount" min="0">
+      </div>
+      <div class="mb-3">
+          <label for="currency" class="form-label">Оберіть валюту</label>
+          <select name="currency" id="currency">
+              <option value="грн">Гривні</option>
+              <option value="$">Долари</option>
+              <option value="euro">Євро</option>
+
+          </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Додати</button>
+</form>
+{% endblock %}
